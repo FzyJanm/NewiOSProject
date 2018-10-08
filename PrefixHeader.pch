@@ -1,0 +1,263 @@
+//
+//  PrefixHeader.pch
+//  TenMinDemo
+//
+//  Created by apple开发 on 16/3/10.
+//  Copyright © 2016年 CYX. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+//第三方引入
+//#import "MJExtension.h"
+//#import "MJRefresh.h"
+//#import "Masonry.h"
+//#import "UIView+MJExtension.h"
+//#import "MJRefresh.h"
+//#import "MJExtension.h"
+
+//#import "SDImageCache.h"
+//#import "SDImageCache.h"
+//#import "SDWebImageManager.h"
+//#import "SDWebImageCompat.h"
+//#import "SDWebImageDownloader.h"
+//#import "SVProgressHUD.h"
+
+//必备
+#import "AnalyzeObject.h"
+#import "SuperViewController.h"
+#import "SuperTableViewCell.h"
+#import "UIScrollView+EmptyDataSet.h"
+
+//常用工具类
+#import "FZYControl.h"
+#import "Singleton.h"
+#import "MXNavigationBarManager.h"
+#import "NavController.h"
+#import "FZYUICommom.h"
+#import "RDVTabBarController.h"
+#import "RDVTabBarItem.h"
+
+
+//分类
+//#import "RDVTabBarController.h"
+#import "UIButton+Block.h"
+#import "UIView+Frame.h"
+#import "UIImage+Helper.h"
+#import "UIView+Geometry.h"
+#import "UIButton+CountDown.h"
+#import "NSString+WPAttributedMarkup.h"
+#import "UIButton+Helper.h"
+#import "YYKit.h"
+
+//#define Host    @"http://122.114.180.111:1156/NewsInterface/PhoneApp.ashx"
+//#define YUMING      @"http://122.114.180.111:1156"
+
+//#define Host    @"http://123.59.232.97:1688/NewsInterface/PhoneApp.ashx"
+//#define YUMING      @"http://123.59.232.97:1688"
+
+#define Host    @"http://122.114.180.111:1165/interfaceDOC/firstProject/api.ashx"
+#define YUMING      @"http://122.114.180.111:1165"
+
+#pragma mark - 效率
+#define kHttpRequest [AnalyzeObject shareAnalyze]
+#define yes YES
+#define no NO
+/** 本地图片 */
+#define ImageNamed(_imgName) [UIImage imageNamed:_imgName]
+/** 网络图片地址 */
+#define ImageWithUrlStr(_imageStr) [NSString stringWithFormat:@"%@/%@",YUMING,_imageStr]
+/** 本地化存储 */
+#define kStockpile [Stockpile sharedStockpile]
+#define MainStoryboard [UIStoryboard storyboardWithName:@"Main" bundle:nil]
+#define WeakSelf __weak typeof(self) weakSelf = self;
+#define MainWINDOW [[[UIApplication sharedApplication] delegate] window]
+#define FONT(f) [UIFont systemFontOfSize:(f)]
+#define NoMoreData [code isEqualToString:@"0"]
+/** 取消表格分割线 */
+#define NonSepeartorEdgeInsert UIEdgeInsetsMake(0, 0, MAXFLOAT, 0)
+#define CODE(__code) [__code isEqualToString:@"1"]
+
+/** 视图加圆角 */
+#define ViewRadius(View,Radius)\
+\
+[View.layer setCornerRadius:(Radius)];\
+[View.layer setMasksToBounds:YES];
+/** 视图加边框 */
+#define ViewBorder(View,Color,width)\
+\
+[View.layer setBorderColor:(Color.CGColor)];\
+[View.layer setBorderWidth:(width)];
+
+
+#pragma mark - 打印
+#if DEBUG
+#define NSLog(fmt,...)    NSLog((@"%s [Line %d] " fmt),__PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);  /**<输出语句>*/
+#else
+#define NSLog(fmt, ...)
+#endif
+
+//property属性快速声明
+#define PropertyString(s)               @property(nonatomic,copy) NSString * s
+#define PropertyNSInteger(s)            @property(nonatomic,assign) NSInteger s
+#define PropertyFloat(s)                @property(nonatomic,assign) float s
+#define PropertyLongLong(s)             @property(nonatomic,assign) long long  s
+#define PropertyNSMutableDictionary(s)  @property(nonatomic,strong) NSMutableDictionary * s
+#define PropertyNSArray(s)              @property(nonatomic,strong) NSArray * s
+#define PropertyNSMutableArray(s)       @property(nonatomic,strong) NSMutableArray * s
+#define PropertyBOOL(s)                 @property(nonatomic,assign) BOOL s
+
+
+#define kSeparatorColor             FZYColor(230,230,230)
+#define kTextColor                  FZYColor(47,51,62)
+#define kTextColorTwo               FZYColor(93,106,112)
+#define kTextColorThree             FZYColor(145,158,164)
+#define kRedColor                   FZYColor(247,55,0)
+#define kBtnTextColor               FZYColor(102,102,102)
+#define kSelectedColor              FZYColor(145,158,165)
+#define kLineColor                  FZYColor(201,201,201)
+#define kViewBGColor                FZYColor(244,244,244)
+
+//  MARK: - XDRD
+#define kThemeColor                 FZYColor(255,155,191)
+#define kGreenTextColor             FZYColor(0,211, 207)
+
+#pragma mark - 配色
+#define UIColorFromHex(s)   [UIColor colorWithRed:(((s & 0xFF0000) >> 16 )) / 255.0 green:((( s & 0xFF00 ) >> 8 )) / 255.0 blue:(( s & 0xFF )) / 255.0 alpha:1.0]
+#define FZYColor(r, g, b)   [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+#define RGBA(r,g,b,a)       [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+#define FZYRandomColor      FZYColor(arc4random_uniform(255), arc4random_uniform(255), arc4random_uniform(255))
+
+
+#pragma mark - 适配
+#define DefaultFont(__scale) [UIFont systemFontOfSize:13*__scale]
+
+#define iPhoneX (APPH==812)
+#define rStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#define rNavBarHeight 44.0
+#define rTabBarHeight (rStatusBarHeight>20?83:49)
+#define NAVGATIONBRHEIGHT (rStatusBarHeight + rNavBarHeight)
+
+//非控制器视图scale
+#define SCALE  2.35 * (APPH>480?((APPH == 812)?667.0/568.0:APPH/568.0):1)
+//控制器视图
+#define Scale 2.35 * (self.scale)
+#define APPH  [UIScreen mainScreen].bounds.size.height
+#define APPW  [UIScreen mainScreen].bounds.size.width
+/*
+ 苹果最新尺寸
+ Device                 Portrait dimensions             Landscape dimensions     pt                     Scale Factor
+ 12.9" iPad Pro         2048px × 2732px                 2732px × 2048px         1024pt × 1366pt         @2x
+ 10.5" iPad Pro         1668px × 2224px                 2224px × 1668px         834pt × 1112pt          @2x
+ 9.7" iPad              1536px × 2048px                 2048px × 1536px         768pt × 1024pt          @2x
+ 7.9" iPad mini 4       1536px × 2048px                 2048px × 1536px         768pt × 1024pt          @2x
+ 
+ iPhone XS Max          1242px × 2688px                 2688px × 1242px         414pt × 896pt           @3x
+ iPhone XR              828px  × 1792px                 1792px × 828px          414pt × 896pt           @2x
+ iPhone XS              1125px × 2436px                 2436px × 1125px         375pt × 812pt           @3x
+ iPhone X               1125px × 2436px                 2436px × 1125px         375pt × 812pt           @3x
+ iPhone 8 Plus          1242px × 2208px                 2208px × 1242px         414pt × 736pt           @3x
+ iPhone 8               750px  × 1334px                 1334px × 750px          414pt × 736pt           @2x
+ iPhone 7 Plus          1242px × 2208px                 2208px × 1242px         414pt × 736pt           @3x
+ iPhone 7               750px  × 1334px                 1334px × 750px          375pt × 667pt           @2x
+ iPhone 6s Plus         1242px × 2208px                 2208px × 1242px         414pt × 736pt           @3x
+ iPhone 6s              750px  × 1334px                 1334px × 750px          375pt × 667pt           @2x
+ iPhone SE              640px  × 1136px                 960px × 640px           320pt × 568pt           @2x
+ iPhone 5               640px  × 1136px                 960px × 640px           320pt × 568pt           @2x
+ iPhone 4               640px  × 960px                  960px  × 640px          320pt × 480pt           @2x
+
+ 由于UI作图 以iPhone6为基准作图，
+ 所以测量出的px大小要先从6的大小进行缩小至5 再去乘以 scale 即 x/(2*(667/568)==2*1.1742=2.3484)* scale ------(2为点位与px的换算值)
+ x/(2*(667/568)==2*1.1742=2.3484)=基准点位数*scale ==> 即为所有手机适配的等比点位
+最终公式：x(像素数)/2.35*self.scale(H/568) == 实际pt点位
+ 
+ 以iPhone5 为基准 计算scale
+ iPhone4    scale 1 即 与iPhone5 使用同一比例
+ iPhone5    scale 1
+ iPhone6    scale 1.174
+ iPhone6P   scale 1.295
+ iPhoneX    scale 1.174(同6)
+ 
+ 
+ SCALE 和Scale 为已换算过倍数，可以直接除 即x/Scale 或 x/SCALE **字体必须以对照表乘以self.scale**
+ 
+ **/
+
+/**
+ 
+ UIViewContentModeScaleToFill,          等比放大至填充满视图，图片不变形
+ UIViewContentModeScaleAspectFit,       等比放大或缩小至视图最常一边适应视图宽或高，图片不变形
+ UIViewContentModeScaleAspectFill,      平铺图片，图片等于视图宽高，图片变形
+
+ */
+
+#pragma mark - 视频下载及文件操作备用
+
+#define kHomePath                   NSHomeDirectory()
+#define kCachePath                  [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"]
+#define kDocumentFolder             [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+#define kDocumentFolder2            [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+
+#define kLibraryPath                [NSHomeDirectory() stringByAppendingPathComponent:@"Library"]
+#define kTempPath                   NSTemporaryDirectory()
+#define kMainBoundPath              [[NSBundle mainBundle] bundlePath]
+#define kResourcePath               [[NSBundle mainBundle] resourcePath]
+#define kExecutablePath             [[NSBundle mainBundle] executablePath]
+
+/**虚拟机判断*/
+#define ISSIMULATOR ([[UIDevice currentDevice].model isEqualToString:@"iPhone Simulator"])
+
+#pragma mark -  旋转角度
+#define DegreesToRadians(x) ((x) * M_PI / -180.0)
+
+#pragma mark - DES加密
+#define DESKey      @"CRsc123."
+#define DESIV       @"@#$~^&*!"
+
+//界面布局配置
+
+/**界面间距*/
+#define RM_Padding (10*self.scale)
+/**状态栏高度*/
+#define RM_StateHeight 20
+/**导航栏高度*/
+#define RM_NavHeigth 64
+/**底部菜单高度*/
+#define RM_TabBarHeigth 49
+/**默认高度高度*/
+#define RM_CellHeigth (44*self.scale)
+
+//项目中文字长度限制
+
+/** 姓名长度*/
+#define RM_NameLength 8
+/** 手机号码长度*/
+#define RM_TelLength 11
+/** 密码最大长度*/
+#define RM_PwdMaxLength 16
+/** 密码最小长度*/
+#define RM_PwdMinLength 6
+/** 验证码长度*/
+#define RM_CodeLength 4
+/** 邮编长度*/
+#define RM_PostCodeLength 6
+/** 标题长度*/
+#define RM_TitleLength 20
+/** 留言、意见反馈长度*/
+#define RM_LeaveMessageLength 200
+/** 评论长度*/
+#define RM_CommentLength 500
+/** 地址长度*/
+#define RM_AddressLength 45
+/** 身份证长度*/
+#define RM_IDCardLength 18
+/** 银行卡长度*/
+#define RM_BankCardLength 19
+
+/**
+ *  买家留言
+ */
+#define RM_MarkLength 50
+#endif /* PrefixHeader_pch */
+
