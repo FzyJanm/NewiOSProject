@@ -38,19 +38,23 @@
     
     UINavigationController *firstNVC    = [[UINavigationController alloc]
                                         initWithRootViewController:[NSClassFromString(@"HomeVC") new]];
-    UINavigationController *secondNVC   = [[UINavigationController alloc]
-                                        initWithRootViewController:[NSClassFromString(@"CategoryVC") new]];
-    UINavigationController *thirdNVC    = [[UINavigationController alloc]
-                                        initWithRootViewController:[NSClassFromString(@"ShoppingCartVC") new]];
+//    UINavigationController *secondNVC   = [[UINavigationController alloc]
+//                                        initWithRootViewController:[NSClassFromString(@"CategoryVC") new]];
+//    UINavigationController *thirdNVC    = [[UINavigationController alloc]
+//                                        initWithRootViewController:[NSClassFromString(@"ShoppingCartVC") new]];
     UINavigationController *meNVC       = [[UINavigationController alloc]
                                         initWithRootViewController:[NSClassFromString(@"MeVC") new]];
     
     
     
-    [self setViewControllers:@[firstNVC, secondNVC,thirdNVC,meNVC]];
-    thirdNVC.rdv_tabBarItem.badgeBackgroundColor = kThemeColor;
-//     [ShoppingCartVC sharedShoppingCartVC].rdv_tabBarItem.size = CGSizeMake(22, 18);
-    thirdNVC.rdv_tabBarItem.badgeTextFont = FONT(9*SCALE/2.25);
+    [self setViewControllers:
+     @[firstNVC,
+//       secondNVC,
+//       thirdNVC,
+       meNVC]];
+//    thirdNVC.rdv_tabBarItem.badgeBackgroundColor = kThemeColor;
+////     [ShoppingCartVC sharedShoppingCartVC].rdv_tabBarItem.size = CGSizeMake(22, 18);
+//    thirdNVC.rdv_tabBarItem.badgeTextFont = FONT(9*SCALE/2.25);
     [self customizeTabBarForController:self];
     
     
@@ -60,8 +64,14 @@
 - (void)customizeTabBarForController:(RDVTabBarController *)tabBarController {
     //    UIImage *finishedImage = [UIImage imageNamed:@"tabbar_selected_background"];
     //    UIImage *unfinishedImage = [UIImage imageNamed:@"tabbar_normal_background"];
-    NSArray *tabBarItemImages = @[@"shouye", @"fenlei", @"gouwuche",@"wode"];
-    NSArray *tabBarTitles = @[@"首页",@"分类",@"购物车",@"我的"];
+    NSArray *tabBarItemImages = @[@"shouye",
+//                                  @"fenlei",
+//                                  @"gouwuche",
+                                  @"wode"];
+    NSArray *tabBarTitles = @[@"首页",
+//                              @"分类",
+//                              @"购物车",
+                              @"我的"];
     NSInteger index = 0;
     
     for (RDVTabBarItem *item in [[tabBarController tabBar] items]) {

@@ -14,36 +14,22 @@
 #import "Stockpile.h"
 #import "AppDelegate.h"
 #import "RDVTabBar.h"
-
-//#import "IQKeyboardManager.h"
-//#import "IQKeyboardReturnKeyHandler.h"
 #import "MBProgressHUD+Add.h"
 #import "UITextView+limitText.h"
 #import "UIImageView+AFNetworking.h"
 #import "CustomProgress.h"
 #import "UIButton+AFNetworking.h"
-//#import "UIView+MJExtension.h"
-
-
-//#import "MJRefresh.h"
 #import "LineView.h"
 #import "UITextField+limitText.h"
 #import "UIImage+Helper.h"
 #import "UINavigationController+FDFullscreenPopGesture.h"
 #import "CustomTextField.h"
 
-//#import "WPHotspotLabel.h"
-//#import "NSString+WPAttributedMarkup.h"
-//#import "WPAttributedStyleAction.h"
-//#import "LogInViewController.h"
 #import "zhPopupController.h"
 #import "CountDown.h"
 #import "UIView+TYAlertView.h"
-// if you want blur efffect contain this
 #import "TYAlertController+BlurEffects.h"
-//#import "MoreSDKDemo-Prefix.pch"
-//
-//#import "RCDChatViewController.h"
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 

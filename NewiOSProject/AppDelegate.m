@@ -9,39 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
-//微信SDK头文件
 #import "WXApi.h"
 #import "WXApiObject.h"
-//#import "JPUSHService.h"
-#import "payRequsestHandler.h"
 #import <AlipaySDK/AlipaySDK.h>
-
-
-//#import "LoginVC.h"
 #import "SuperTabBarViewController.h"
 #import "RDVTabBarController.h"
 #import "RDVTabBarItem.h"
-
-
-#import <UMCommon/UMCommon.h>
-#import <UMShare/UMShare.h>
-
-
-
-#import "LMJIntroductoryPagesView.h"
-#import "LMJIntroductoryPagesHelper.h"
-/** 极光  推送跳转*/
-#import "PagerDetial.h"
-//#import "ConferenceInfo.h"
-
-
-// iOS10注册APNs所需头文件
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-#import <UserNotifications/UserNotifications.h>
-#endif
-// 如果需要使用idfa功能所需要引入的头文件（可选）
-#import <AdSupport/AdSupport.h>
-//#import "LoginVC.h"
 @interface AppDelegate ()<UIScrollViewDelegate,RDVTabBarControllerDelegate,WXApiDelegate>{
     UIPageControl *page;
     int ii;
@@ -71,21 +44,9 @@
     return _window;
 }
 
-- (void)getShopCartNum {
-    NSDictionary *dic =@{@"action":@"g_spcarcount",@"uid":kStockpile.userID};
-    //    g_spcarcount;
-    [kHttpRequest LinkServiceWithUrl:nil ForIsToken:nil ForParameters:dic Block:^(id models, NSString *code, NSString *msg) {
-        
-        if (CODE(code))
-        {
-            kStockpile.shopCartNum = [models[@"scnum"] stringValue];
-            //            [[ShoppingCartVC sharedShoppingCartVC].rdv_tabBarItem setBadgeValue:[models[@"scnum"] stringValue]];
-        }
-    }];
-}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     if (kStockpile.userID) {
-        [self getShopCartNum];
         self.tabBarViewController =[[SuperTabBarViewController alloc] init];
         self.window.rootViewController = self.tabBarViewController;
         NSLog(@"%@",kStockpile.userID);
@@ -95,17 +56,9 @@
         //        self.window.rootViewController = loginVC;
     }
     
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
-        
-        [LMJIntroductoryPagesHelper showIntroductoryPageView:@[@"引导页1.jpg", @"引导页2.jpg"]];
-        //程序第一次启动的时候创建杂志文件夹
-        
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
-        
-    }
     
-    [self  UMConfig];
+    
+//    [self  UMConfig];
     //    /** 极光配置 */
     //    JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
     //    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionSound;
@@ -122,81 +75,81 @@
     ////            advertisingIdentifier:nil];
     return YES;
 }
-- (void)UMConfig {
-    
-    /** 友盟 */
-    //    [UMCommonLogManager setUpUMCommonLogManager];
-    [UMConfigure setLogEnabled:YES];
-    [UMConfigure initWithAppkey:@"5b4f9705a40fa32c96000633" channel:@"App Store"];
-    //    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
-    
-    // U-Share 平台设置
-    [self configUSharePlatforms];
-    [self confitUShareSettings];
-    //    [UMConfigure deviceIDForIntegration];
-    NSLog(@"version**************************%@",[UMSocialGlobal umSocialSDKVersion]);
-    
-}
-#pragma mark - 友盟
-- (void)confitUShareSettings
-{
-    [UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
-    
-}
-/** 友盟第三方平台配置 */
-- (void)configUSharePlatforms
-{
-    
-    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite),@(UMSocialPlatformType_Qzone)]];
-    
-    /* 设置微信的appKey和appSecret */
-    //     [WXApi registerApp:@"wxb2ff591e2f9bb072"];
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WeChatAppID appSecret:WeChatSecret redirectURL:@"http://mobile.umeng.com/social"];
-    [WXApi registerApp:WeChatAppID];
-    
-    /* 设置分享到QQ互联的appID
-     * U-Share SDK为了兼容大部分平台命名，统一用appKey和appSecret进行参数设置，而QQ平台仅需将appID作为U-Share的appKey参数传进即可。
-     */
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105821097" appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
-    
-}
+//- (void)UMConfig {
+//
+//    /** 友盟 */
+//    //    [UMCommonLogManager setUpUMCommonLogManager];
+//    [UMConfigure setLogEnabled:YES];
+//    [UMConfigure initWithAppkey:@"5b4f9705a40fa32c96000633" channel:@"App Store"];
+//    //    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
+//
+//    // U-Share 平台设置
+//    [self configUSharePlatforms];
+//    [self confitUShareSettings];
+//    //    [UMConfigure deviceIDForIntegration];
+//    NSLog(@"version**************************%@",[UMSocialGlobal umSocialSDKVersion]);
+//
+//}
+//#pragma mark - 友盟
+//- (void)confitUShareSettings
+//{
+//    [UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
+//
+//}
+///** 友盟第三方平台配置 */
+//- (void)configUSharePlatforms
+//{
+//
+//    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite),@(UMSocialPlatformType_Qzone)]];
+//
+//    /* 设置微信的appKey和appSecret */
+//    //     [WXApi registerApp:@"wxb2ff591e2f9bb072"];
+//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WeChatAppID appSecret:WeChatSecret redirectURL:@"http://mobile.umeng.com/social"];
+//    [WXApi registerApp:WeChatAppID];
+//
+//    /* 设置分享到QQ互联的appID
+//     * U-Share SDK为了兼容大部分平台命名，统一用appKey和appSecret进行参数设置，而QQ平台仅需将appID作为U-Share的appKey参数传进即可。
+//     */
+//    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105821097" appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
+//
+//}
 
 #pragma mark - 微信支付
 /**
  *微信支付
  */
--(void)WXPayPrice:(NSString *)price OrderID:(NSString *)orderId OrderName:(NSString *)orderName mySign:(NSString *)sign complete:(WXPayBlock)complete{
-    //微信支付需要配置白名单  并且设置url Types  在调用方法之前需要初始化微信
-    
-    _wxpay=complete;
-    payRequsestHandler *req=[payRequsestHandler alloc];
-    //初始化支付签名对象
-    [req init:APPI_ID mch_id:PARTNER_ID];
-    [req setKey:PARTNER_KEY];
-    
-    NSMutableDictionary *dict = [req sendPayByOrderTitle:orderName Price:price OrderID:orderId   UUID: [[[UIDevice currentDevice] identifierForVendor] UUIDString]];
-    
-    if(dict == nil){
-        //错误提示
-        NSString *debug = [req getDebugifo];
-        NSLog(@"%@\n\n",debug);
-    }else{
-        NSLog(@"%@\n\n",[req getDebugifo]);
-        //[self alert:@"确认" msg:@"下单成功，点击OK后调起支付！"];
-        NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
-        //调起微信支付
-        PayReq* req             = [[PayReq alloc] init];
-        req.openID              = [dict objectForKey:@"appid"];
-        req.partnerId           = [dict objectForKey:@"partnerid"];
-        req.prepayId            = [dict objectForKey:@"prepayid"];
-        req.nonceStr            = [dict objectForKey:@"noncestr"];
-        req.timeStamp           = stamp.intValue;
-        req.package             = [dict objectForKey:@"package"];
-        req.sign                = [dict objectForKey:@"sign"];
-        [WXApi sendReq:req];
-    }
-    
-}
+//-(void)WXPayPrice:(NSString *)price OrderID:(NSString *)orderId OrderName:(NSString *)orderName mySign:(NSString *)sign complete:(WXPayBlock)complete{
+//    //微信支付需要配置白名单  并且设置url Types  在调用方法之前需要初始化微信
+//
+//    _wxpay=complete;
+//    payRequsestHandler *req=[payRequsestHandler alloc];
+//    //初始化支付签名对象
+//    [req init:APPI_ID mch_id:PARTNER_ID];
+//    [req setKey:PARTNER_KEY];
+//
+//    NSMutableDictionary *dict = [req sendPayByOrderTitle:orderName Price:price OrderID:orderId   UUID: [[[UIDevice currentDevice] identifierForVendor] UUIDString]];
+//
+//    if(dict == nil){
+//        //错误提示
+//        NSString *debug = [req getDebugifo];
+//        NSLog(@"%@\n\n",debug);
+//    }else{
+//        NSLog(@"%@\n\n",[req getDebugifo]);
+//        //[self alert:@"确认" msg:@"下单成功，点击OK后调起支付！"];
+//        NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
+//        //调起微信支付
+//        PayReq* req             = [[PayReq alloc] init];
+//        req.openID              = [dict objectForKey:@"appid"];
+//        req.partnerId           = [dict objectForKey:@"partnerid"];
+//        req.prepayId            = [dict objectForKey:@"prepayid"];
+//        req.nonceStr            = [dict objectForKey:@"noncestr"];
+//        req.timeStamp           = stamp.intValue;
+//        req.package             = [dict objectForKey:@"package"];
+//        req.sign                = [dict objectForKey:@"sign"];
+//        [WXApi sendReq:req];
+//    }
+//
+//}
 
 
 #pragma clang diagnostic push
@@ -230,8 +183,8 @@
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{ //这里判断是否发起的请求为微信支付，如果是的话，用WXApi的方法调起微信客户端的支付页面（://pay 之前的那串字符串就是你的APPID，）
     
     //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
-    BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
-    if (!result) {
+//    BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
+//    if (!result) {
         // 其他如支付等SDK的回调
         if ([url.host isEqualToString:@"safepay"]) {
             [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -248,8 +201,8 @@
             return YES;
         }
         return [WXApi handleOpenURL:url delegate:self];
-    }
-    return result;
+//    }
+//    return result;
 }
 
 //iOS 4.2+
@@ -257,8 +210,8 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     
     //    6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
-    if (!result) {
+//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+//    if (!result) {
         // 其他如支付等SDK的回调
         
         if ([url.host isEqualToString:@"safepay"]) {
@@ -271,17 +224,19 @@
                 
             }];
             return YES;
+        }else{
+            return NO;
         }
         
-    }
-    return result;
+//    }
+//    return result;
 }
 
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
-    if (!result) {
+//    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+//    if (!result) {
         // 其他如支付等SDK的回调
         
         if ([url.host isEqualToString:@"safepay"]) {
@@ -297,9 +252,11 @@
                 
             }];
             return YES;
+        }else{
+            return NO;
         }
-    }
-    return result;
+//    }
+//    return result;
 }
 //
 //

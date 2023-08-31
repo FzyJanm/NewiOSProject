@@ -10,8 +10,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "payRequsestHandler.h"
-
 #define WeChatAppID @"wxf84fea363b403f22"
 #define WeChatSecret @"1ed3e3a493519bbc879fa5e9339e3ba0"
 
