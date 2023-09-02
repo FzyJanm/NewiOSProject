@@ -243,4 +243,11 @@
     NSString *destDateString = [dateFormatter stringFromDate:date];
     return destDateString;
 }
+-(BOOL)isValidMexicanPhoneNumber{
+    
+    NSString *mexicanPhoneNumberRegex = @"^(\\+?52)?(1)?[ ]?[ -]?(\\d{2})?[ -]?(\\d{4})?[ -]?(\\d{4})$";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", mexicanPhoneNumberRegex];
+    return [predicate evaluateWithObject:self];
+    
+}
 @end

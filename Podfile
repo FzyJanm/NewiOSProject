@@ -4,7 +4,7 @@
 target 'NewiOSProject' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
+  inhibit_all_warnings!
   # Pods for NewiOSProject
   #    网络
   pod 'AFNetworking'
@@ -15,7 +15,7 @@ target 'NewiOSProject' do
   #图片网络加载
   pod 'SDWebImage'
   #autolayout
-#  pod 'Masonry'
+  pod 'Masonry'
   #UITextView带Placeholder
   pod 'UITextView+Placeholder'
   #键盘
@@ -27,9 +27,9 @@ target 'NewiOSProject' do
   #数模转换
   pod 'MJExtension'
 #  #微信支付
-  pod 'WechatOpenSDK'
+#  pod 'WechatOpenSDK'
   #支付宝
-  pod 'AlipaySDK-iOS'
+#  pod 'AlipaySDK-iOS'
   #文字处理
   pod 'YYText'
 

@@ -9,13 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
-#import "WXApi.h"
-#import "WXApiObject.h"
-#import <AlipaySDK/AlipaySDK.h>
 #import "SuperTabBarViewController.h"
 #import "RDVTabBarController.h"
 #import "RDVTabBarItem.h"
-@interface AppDelegate ()<UIScrollViewDelegate,RDVTabBarControllerDelegate,WXApiDelegate>{
+@interface AppDelegate ()<UIScrollViewDelegate,RDVTabBarControllerDelegate>{
     UIPageControl *page;
     int ii;
     UIScrollView *scroll;
@@ -46,15 +43,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    if (kStockpile.userID) {
+    
         self.tabBarViewController =[[SuperTabBarViewController alloc] init];
         self.window.rootViewController = self.tabBarViewController;
-        NSLog(@"%@",kStockpile.userID);
-        
-    }else {
-        //        LoginVC *loginVC = [MainStoryboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-        //        self.window.rootViewController = loginVC;
-    }
+
     
     
     
@@ -163,44 +155,46 @@
 -(void)AliPayfororderString:(NSString *)orderString complete:(ApiPayBlock)complete{
     
     _ApiBlock=complete;
-    orderString = [orderString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    [[AlipaySDK defaultService] payOrder:orderString fromScheme:@"XDRD" callback:^(NSDictionary *resultDic) {
-        NSLog(@"reslut = %@",resultDic);
-        if (_ApiBlock) {
-            if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
-                _ApiBlock(YES);
-            }else{
-                _ApiBlock(NO);
-            }
-        }
-        
-    }];
+//    orderString = [orderString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//
+//    [[AlipaySDK defaultService] payOrder:orderString fromScheme:@"XDRD" callback:^(NSDictionary *resultDic) {
+//        NSLog(@"reslut = %@",resultDic);
+//        if (_ApiBlock) {
+//            if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+//                _ApiBlock(YES);
+//            }else{
+//                _ApiBlock(NO);
+//            }
+//        }
+//
+//    }];
 }
 
 
 //  MARK: -应用跳转回调
--(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{ //这里判断是否发起的请求为微信支付，如果是的话，用WXApi的方法调起微信客户端的支付页面（://pay 之前的那串字符串就是你的APPID，）
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+    return YES;
+    //这里判断是否发起的请求为微信支付，如果是的话，用WXApi的方法调起微信客户端的支付页面（://pay 之前的那串字符串就是你的APPID，）
     
     //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
 //    BOOL result = [[UMSocialManager defaultManager]  handleOpenURL:url options:options];
 //    if (!result) {
         // 其他如支付等SDK的回调
-        if ([url.host isEqualToString:@"safepay"]) {
-            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-                NSLog(@"result = %@",resultDic);
-                if (_ApiBlock) {
-                    if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
-                        _ApiBlock(YES);
-                    }else{
-                        _ApiBlock(NO);
-                    }
-                }
-                
-            }];
-            return YES;
-        }
-        return [WXApi handleOpenURL:url delegate:self];
+//        if ([url.host isEqualToString:@"safepay"]) {
+//            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+//                NSLog(@"result = %@",resultDic);
+//                if (_ApiBlock) {
+//                    if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+//                        _ApiBlock(YES);
+//                    }else{
+//                        _ApiBlock(NO);
+//                    }
+//                }
+//
+//            }];
+//            return YES;
+//        }
+//        return [WXApi handleOpenURL:url delegate:self];
 //    }
 //    return result;
 }
@@ -213,20 +207,20 @@
 //    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
 //    if (!result) {
         // 其他如支付等SDK的回调
-        
-        if ([url.host isEqualToString:@"safepay"]) {
-            
-            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-                NSLog(@"result = %@",resultDic);
-                if (_ApiBlock) {
-                    _ApiBlock(resultDic);
-                }
-                
-            }];
-            return YES;
-        }else{
+//
+//        if ([url.host isEqualToString:@"safepay"]) {
+//
+//            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+//                NSLog(@"result = %@",resultDic);
+//                if (_ApiBlock) {
+//                    _ApiBlock(resultDic);
+//                }
+//
+//            }];
+//            return YES;
+//        }else{
             return NO;
-        }
+//        }
         
 //    }
 //    return result;
@@ -239,22 +233,22 @@
 //    if (!result) {
         // 其他如支付等SDK的回调
         
-        if ([url.host isEqualToString:@"safepay"]) {
-            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-                NSLog(@"result = %@",resultDic);
-                if (_ApiBlock) {
-                    if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
-                        _ApiBlock(YES);
-                    }else{
-                        _ApiBlock(NO);
-                    }
-                }
-                
-            }];
-            return YES;
-        }else{
+//        if ([url.host isEqualToString:@"safepay"]) {
+//            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+//                NSLog(@"result = %@",resultDic);
+//                if (_ApiBlock) {
+//                    if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+//                        _ApiBlock(YES);
+//                    }else{
+//                        _ApiBlock(NO);
+//                    }
+//                }
+//
+//            }];
+//            return YES;
+//        }else{
             return NO;
-        }
+//        }
 //    }
 //    return result;
 }

@@ -133,7 +133,7 @@ NSInteger timeout1;
     [self setTitle:[NSString stringWithFormat:@"%@秒后重发",@(timeout1)] forState:UIControlStateDisabled];
       self.enabled=NO;
     _timer= [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeji) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:UITrackingRunLoopMode];
+    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
 }
 -(void)timeji
 {

@@ -52,7 +52,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-   
+    
     [self setSelectedIndex:[self selectedIndex]];
     
     [self setTabBarHidden:self.isTabBarHidden animated:NO];
@@ -60,7 +60,7 @@
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self setTabBarHidden:self.isTabBarHidden animated:NO];
-
+    
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -135,7 +135,7 @@
             [viewController removeFromParentViewController];
         }
     }
-
+    
     if (viewControllers && [viewControllers isKindOfClass:[NSArray class]]) {
         _viewControllers = [viewControllers copy];
         

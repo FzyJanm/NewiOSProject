@@ -11,7 +11,6 @@
 
 //第三方引入
 #import "MJRefresh.h"
-//#import "Masonry.h"
 #import "MJRefresh.h"
 #import <MJExtension/MJExtension.h>
 
@@ -28,13 +27,11 @@
 #import "SuperViewController.h"
 #import "SuperTableViewCell.h"
 #import "UIScrollView+EmptyDataSet.h"
-
+#import <MBProgressHUD.h>
+#import <Masonry.h>
 //常用工具类
 #import "FZYControl.h"
 #import "Singleton.h"
-#import "MXNavigationBarManager.h"
-#import "NavController.h"
-#import "FZYUICommom.h"
 #import "RDVTabBarController.h"
 #import "RDVTabBarItem.h"
 #import "JMCommonMacro.h"
@@ -42,38 +39,35 @@
 #import "JMCommonMethod.h"
 #import "JMRequestManager.h"
 #import "JMProgressHelper.h"
-//分类
-//#import "RDVTabBarController.h"
 #import "UIButton+Block.h"
-#import "UIView+Frame.h"
+//分类
+#import <YYCategories.h>
+#import "RDVTabBarController.h"
+#import "UIButton+Block.h"
 #import "UIImage+Helper.h"
-#import "UIView+Geometry.h"
 #import "UIButton+CountDown.h"
 #import "NSString+WPAttributedMarkup.h"
 #import "UIButton+Helper.h"
 #import "NSDictionary+JMJson.h"
 #import "NSMutableDictionary+JMJson.h"
 #import "NSDictionary+SafeObject.h"
+#import "UIView+Category.h"
 
-//#define Host    @"http://122.114.180.111:1156/NewsInterface/PhoneApp.ashx"
-//#define YUMING      @"http://122.114.180.111:1156"
+//通用项目 自定义试图
+#import "FZYLoadingButton.h"
+#import "FZYPublicAlertView.h"
 
-//#define Host    @"http://123.59.232.97:1688/NewsInterface/PhoneApp.ashx"
-//#define YUMING      @"http://123.59.232.97:1688"
+
 
 #define Host    @"http://122.114.180.111:1165/interfaceDOC/firstProject/api.ashx"
 #define YUMING      @"http://122.114.180.111:1165"
 
 #pragma mark - 效率
-#define kHttpRequest [AnalyzeObject shareAnalyze]
-#define yes YES
-#define no NO
 /** 本地图片 */
 #define ImageNamed(_imgName) [UIImage imageNamed:_imgName]
 /** 网络图片地址 */
 #define ImageWithUrlStr(_imageStr) [NSString stringWithFormat:@"%@/%@",YUMING,_imageStr]
 /** 本地化存储 */
-#define kStockpile [Stockpile sharedStockpile]
 #define MainStoryboard [UIStoryboard storyboardWithName:@"Main" bundle:nil]
 #define WeakSelf __weak typeof(self) weakSelf = self;
 #define MainWINDOW [[[UIApplication sharedApplication] delegate] window]
@@ -82,37 +76,7 @@
 /** 取消表格分割线 */
 #define NonSepeartorEdgeInsert UIEdgeInsetsMake(0, 0, MAXFLOAT, 0)
 #define CODE(__code) [__code isEqualToString:@"1"]
-
-/** 视图加圆角 */
-#define ViewRadius(View,Radius)\
-\
-[View.layer setCornerRadius:(Radius)];\
-[View.layer setMasksToBounds:YES];
-/** 视图加边框 */
-#define ViewBorder(View,Color,width)\
-\
-[View.layer setBorderColor:(Color.CGColor)];\
-[View.layer setBorderWidth:(width)];
-
-
-#pragma mark - 打印
-#if DEBUG
-#define NSLog(fmt,...)    NSLog((@"%s [Line %d] " fmt),__PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);  /**<输出语句>*/
-#else
-#define NSLog(fmt, ...)
-#endif
-
-//property属性快速声明
-#define PropertyString(s)               @property(nonatomic,copy) NSString * s
-#define PropertyNSInteger(s)            @property(nonatomic,assign) NSInteger s
-#define PropertyFloat(s)                @property(nonatomic,assign) float s
-#define PropertyLongLong(s)             @property(nonatomic,assign) long long  s
-#define PropertyNSMutableDictionary(s)  @property(nonatomic,strong) NSMutableDictionary * s
-#define PropertyNSArray(s)              @property(nonatomic,strong) NSArray * s
-#define PropertyNSMutableArray(s)       @property(nonatomic,strong) NSMutableArray * s
-#define PropertyBOOL(s)                 @property(nonatomic,assign) BOOL s
-
-
+//
 #define kSeparatorColor             FZYColor(230,230,230)
 #define kTextColor                  FZYColor(47,51,62)
 #define kTextColorTwo               FZYColor(93,106,112)
@@ -218,19 +182,6 @@
 #pragma mark - DES加密
 #define DESKey      @"CRsc123."
 #define DESIV       @"@#$~^&*!"
-
-//界面布局配置
-
-/**界面间距*/
-#define RM_Padding (10*self.scale)
-/**状态栏高度*/
-#define RM_StateHeight 20
-/**导航栏高度*/
-#define RM_NavHeigth 64
-/**底部菜单高度*/
-#define RM_TabBarHeigth 49
-/**默认高度高度*/
-#define RM_CellHeigth (44*self.scale)
 
 //项目中文字长度限制
 

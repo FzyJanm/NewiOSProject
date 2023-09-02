@@ -55,15 +55,15 @@
 
 - (void)commonInitialization {
     _backgroundView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-//    _backgroundView.layer.shadowRadius = 20/SCALE;
-//    _backgroundView.layer.shadowColor = [UIColor grayColor].CGColor;
-//    _backgroundView.layer.opacity = .5;
-//    _backgroundView.alpha = .9;
+    _backgroundView.layer.shadowRadius = 20/SCALE;
+    _backgroundView.layer.shadowColor = [UIColor grayColor].CGColor;
+    _backgroundView.layer.opacity = .5;
+    _backgroundView.alpha = .9;
     
     [self addSubview:_backgroundView];
-    UIView *line = [[UIView alloc]initWithFrame:(CGRectMake(0, 0, APPW, .5))];
-    line.backgroundColor = kSeparatorColor;
-    [self addSubview:line];
+    _separtorLine = [[UIView alloc]initWithFrame:(CGRectMake(0, 0, APPW, .5))];
+    _separtorLine.backgroundColor = kSeparatorColor;
+    [self addSubview:_separtorLine];
     
     [self setTranslucent:YES];
 }

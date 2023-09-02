@@ -7,7 +7,6 @@
 
 #import "EAIntroView.h"
 #import "NSTimer+Addition.h"
-#import "FZYUICommom.h"
 
 #define DEFAULT_BACKGROUND_COLOR [UIColor blackColor]
 

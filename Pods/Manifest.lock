@@ -14,9 +14,9 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - AlipaySDK-iOS (15.8.11)
   - FDFullscreenPopGesture (1.1)
   - IQKeyboardManager (6.5.12)
+  - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - MJExtension (3.4.1)
   - MJRefresh (3.7.5)
@@ -24,7 +24,6 @@ PODS:
     - SDWebImage/Core (= 5.17.0)
   - SDWebImage/Core (5.17.0)
   - "UITextView+Placeholder (1.4.0)"
-  - WechatOpenSDK (2.0.2)
   - YYCategories (1.0.4):
     - YYCategories/no-arc (= 1.0.4)
   - YYCategories/no-arc (1.0.4)
@@ -32,47 +31,44 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - AlipaySDK-iOS
   - FDFullscreenPopGesture
   - IQKeyboardManager
+  - Masonry
   - MBProgressHUD
   - MJExtension
   - MJRefresh
   - SDWebImage
   - "UITextView+Placeholder"
-  - WechatOpenSDK
   - YYCategories
   - YYText
 
 SPEC REPOS:
   trunk:
     - AFNetworking
-    - AlipaySDK-iOS
     - FDFullscreenPopGesture
     - IQKeyboardManager
+    - Masonry
     - MBProgressHUD
     - MJExtension
     - MJRefresh
     - SDWebImage
     - "UITextView+Placeholder"
-    - WechatOpenSDK
     - YYCategories
     - YYText
 
 SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
-  AlipaySDK-iOS: a07b6eafa847a5b29acb6c150ea16d9792d5d167
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   IQKeyboardManager: b1fd66ccf7a79095bdcc4a2735231586f744216e
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
   SDWebImage: 750adf017a315a280c60fde706ab1e552a3ae4e9
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
-  WechatOpenSDK: e79349b37d44c015210f39fd6d2379f0ec60efe2
   YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: ca1c2949aac7bbe070ca57163379d4d32430855c
+PODFILE CHECKSUM: 314562a0c801b74b7661c7a20bbe804dfaf1caa7
 
 COCOAPODS: 1.12.1
